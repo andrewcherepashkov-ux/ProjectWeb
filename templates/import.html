@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6 border p-4 bg-white rounded shadow-sm">
+            <h2 class="mb-4 text-primary">Импорт из браузера</h2>
+            <p class="text-muted">Загрузите HTML файл, экспортированный из Chrome или Firefox.</p>
+            <form method="POST" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    {{ form.html_file(class="form-control") }}
+                </div>
+                {{ form.submit(class="btn btn-primary w-100") }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
