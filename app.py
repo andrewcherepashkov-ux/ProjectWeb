@@ -106,15 +106,10 @@ class ImportForm(FlaskForm):
 # --- СЕРВИСНЫЕ ФУНКЦИИ ---
 
 def get_meta_api(target_url: str) -> Tuple[Optional[str], Optional[str]]:
-    """Получение метаданных сайта через сторонний API."""
-    try:
-        r = requests.get(f"https://microlink.io{target_url}", timeout=5)
-        if r.status_code == 200:
-            data = r.json().get('data', {})
-            return data.get('title'), data.get('description')
-    except Exception as e:
-        logging.error(f"API Error: {e}")
+    """Временная заглушка внешнего API для обеспечения мгновенной загрузки сайта."""
+    # Мы временно возвращаем None, чтобы Python не ходил в интернет и не вешал сайт
     return None, None
+
 
 
 def save_picture(form_picture) -> str:
@@ -227,6 +222,15 @@ def export_data():
 @app.errorhandler(404)
 def error_404(error):
     return "Страница не найдена (404)", 404
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    """Маршрут для выхода пользователя из системы."""
+    logout_user()
+    flash('Вы успешно вышли из системы.', 'info')
+    return redirect(url_for('home'))
 
 
 # Запуск
